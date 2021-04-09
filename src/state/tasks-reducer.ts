@@ -58,8 +58,8 @@ export const taskslistsReducer = (state: TasksStateType, action: ActionsType) =>
 export const RemoveTaskAC = ( todolistId: string, id: string): TRemoveTask => {
     return {type: 'REMOVE-TASK', todolistId, id }
 }
-export const AddTaskAC = (title: string,todolistId: string): TAddTask => {
-    return { type: 'ADD-TASK', title, todolistId }
+export const AddTaskAC = (todolistId: string, title: string): TAddTask => {
+    return { type: 'ADD-TASK', todolistId, title }
 }
 export const ChangeTaskTitleAC = (id: string, todolistId: string, title: string): TChangeTaskTitle => {
     return { type: 'CHANGE-TASK-TITLE', id, todolistId, title }

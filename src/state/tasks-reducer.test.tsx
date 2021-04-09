@@ -8,20 +8,23 @@ import {
 } from './todolists-reducer';
 import {v1} from 'uuid';
 import {FilterValuesType, TasksStateType, TodolistType} from '../App';
-import {RemoveTaskAC, taskslistsReducer} from "./tasks-reducer";
+import {AddTaskAC, RemoveTaskAC, taskslistsReducer} from "./tasks-reducer";
 
-test('correct task should be removed', () => {
-    const startState: TasksStateType = ({
-        'todolistId1': [
+let startState:TasksStateType;
+beforeEach(() => {
+    startState = ({
+        todolistId1: [
             {id: '1', title: "HTML&CSS", isDone: true},
             {id: '2', title: "JS", isDone: true}
         ],
-        'todolistId2': [
+        todolistId2: [
             {id: '1', title: "Milk", isDone: true},
             {id: '2', title: "React Book", isDone: true}
         ]
     });
+})
 
+test('correct task should be removed', () => {
     const endState = taskslistsReducer(startState, RemoveTaskAC('todolistId2', '2'))
 
     expect(endState['todolistId2'].length).toBe(1);
@@ -29,22 +32,13 @@ test('correct task should be removed', () => {
 });
 
 test('correct task should be added', () => {
-    let todolistId1 = v1();
-    let todolistId2 = v1();
+    const newTitle = 'newTask'
+    const endState = taskslistsReducer(startState, AddTaskAC('todolistId2',newTitle))
 
-    let newTodolistTitle = "New Todolist";
-
-    const startState: Array<TodolistType> = [
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ]
-
-    const endState = taskslistsReducer(startState, AddTodolistAC(newTodolistTitle))
-
-    expect(endState.length).toBe(3);
-    expect(endState[2].title).toBe(newTodolistTitle);
-    expect(endState[2].filter).toBe("all");
-    expect(endState[2].id).toBeDefined();
+    expect(endState['todolistId2'].length).toBe(3);
+    expect(endState['todolistId2'][2].title).toBe(newTitle);
+    expect(endState['todolistId2'][2].isDone).toBe(false);
+    expect(endState['todolistId2'][2].id).toBeDefined();
 });
 
 test('correct task should change its name', () => {
