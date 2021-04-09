@@ -45,20 +45,22 @@ export const taskslistsReducer = (state: TasksStateType, action: ActionsType) =>
             return stateCopy
         }
         case 'CHANGE-TASK-TITLE': {
-            let todoListTasks = state[action.todolistId]
+            const stateCopy = {...state}
+            let todoListTasks = stateCopy[action.todolistId]
             let task = todoListTasks.find(t => t.id === action.id)
             if (task) {
                 task.title = action.title;
             }
-            return {...state}
+            return {...stateCopy}
         }
         case 'CHANGE-TASK-STATUS': {
-            let todoListTasks = state[action.todolistId]
+            const stateCopy = {...state}
+            let todoListTasks = stateCopy[action.todolistId]
             let task = todoListTasks.find(t => t.id === action.id)
             if (task) {
                 task.isDone = action.isDone;
             }
-            return {...state}
+            return {...stateCopy}
         }
         default:
             throw new Error("I don't understand this type")
