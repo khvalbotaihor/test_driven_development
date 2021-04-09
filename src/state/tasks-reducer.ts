@@ -1,4 +1,4 @@
-import {FilterValuesType, TodolistType} from '../App';
+import {FilterValuesType, TasksStateType, TodolistType} from '../App';
 import {v1} from 'uuid';
 
 export type TRemoveTask = {
@@ -26,13 +26,12 @@ export type TChangeTaskStatus = {
 
 type ActionsType = TRemoveTask | TAddTask | TChangeTaskTitle | TChangeTaskStatus;
 
-export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType) => {
+export const taskslistsReducer = (state: TasksStateType, action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TASK':
-            let todolistTasks = state[todolistId];
-
-
-            return state.filter(tl => tl.id != action.id)
+            let todolistTasks = state[action.todolistId];
+            state[action.todolistId] = todolistTasks.filter(t => t.id !== action.id)
+            return {...state}
         case 'ADD-TASK':
             return [...state, {id: v1(), title: action.title, filter: "all"}]
         case 'CHANGE-TASK-TITLE': {
@@ -56,8 +55,8 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
     }
 }
 
-export const RemoveTaskAC = ( id: string, todolistId: string): TRemoveTask => {
-    return {type: 'REMOVE-TASK', id, todolistId }
+export const RemoveTaskAC = ( todolistId: string, id: string): TRemoveTask => {
+    return {type: 'REMOVE-TASK', todolistId, id }
 }
 export const AddTaskAC = (title: string,todolistId: string): TAddTask => {
     return { type: 'ADD-TASK', title, todolistId }
