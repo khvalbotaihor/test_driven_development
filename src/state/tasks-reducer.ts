@@ -1,34 +1,38 @@
 import {FilterValuesType, TodolistType} from '../App';
 import {v1} from 'uuid';
 
-export type RemoveTodolistActionType = {
-    type: 'REMOVE-TODOLIST',
-    id: string
+export type TRemoveTask = {
+    type: 'REMOVE-TASK',
+    id: string,
+    todolistId: string
 }
-export type AddTodolistActionType = {
-    type: 'ADD-TODOLIST',
+export type TAddTask = {
+    type: 'ADD-TASK',
+    title: string,
+    todolistId: string
+}
+export type TChangeTaskTitle = {
+    type: 'CHANGE-TASK-TITLE',
+    id: string
+    todolistId: string
     title: string
 }
-export type ChangeTodolistTitleActionType = {
-    type: 'CHANGE-TODOLIST-TITLE',
+export type TChangeTaskStatus = {
+    type: 'CHANGE-TASK-STATUS',
     id: string
-    title: string
-}
-export type ChangeTodolistFilterActionType = {
-    type: 'CHANGE-TODOLIST-FILTER',
-    id: string
-    filter: FilterValuesType
+    todolistId: string
+    isDone: boolean
 }
 
-type ActionsType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType | ChangeTodolistFilterActionType;
+type ActionsType = TRemoveTask | TAddTask | TChangeTaskTitle | TChangeTaskStatus;
 
 export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType) => {
     switch (action.type) {
-        case 'REMOVE-TODOLIST':
+        case 'REMOVE-TASK':
             return state.filter(tl => tl.id != action.id)
-        case 'ADD-TODOLIST':
+        case 'ADD-TASK':
             return [...state, {id: v1(), title: action.title, filter: "all"}]
-        case 'CHANGE-TODOLIST-TITLE': {
+        case 'CHANGE-TASK-TITLE': {
             const todolist = state.find(tl => tl.id === action.id);
             if (todolist) {
                 // если нашёлся - изменим ему заголовок
@@ -36,7 +40,7 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
             }
             return [...state]
         }
-        case 'CHANGE-TODOLIST-FILTER': {
+        case 'CHANGE-TASK-STATUS': {
             const todolist = state.find(tl => tl.id === action.id);
             if (todolist) {
                 // если нашёлся - изменим ему заголовок
