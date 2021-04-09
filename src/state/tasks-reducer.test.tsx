@@ -8,7 +8,7 @@ import {
 } from './todolists-reducer';
 import {v1} from 'uuid';
 import {FilterValuesType, TasksStateType, TodolistType} from '../App';
-import {AddTaskAC, RemoveTaskAC, taskslistsReducer} from "./tasks-reducer";
+import {AddTaskAC, ChangeTaskTitleAC, RemoveTaskAC, taskslistsReducer, TChangeTaskTitle} from "./tasks-reducer";
 
 let startState:TasksStateType;
 beforeEach(() => {
@@ -42,23 +42,13 @@ test('correct task should be added', () => {
 });
 
 test('correct task should change its name', () => {
-    let todolistId1 = v1();
-    let todolistId2 = v1();
-
-    let newTodolistTitle = "New Todolist";
-
-    const startState: Array<TodolistType> = [
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ]
-
-
-    const action = ChangeTodolistTitleAC(todolistId2, newTodolistTitle);
+    const newTitle = 'Samiy noviy title'
+    const action:TChangeTaskTitle = ChangeTaskTitleAC('todolistId2','2', newTitle);
 
     const endState = taskslistsReducer(startState, action);
 
-    expect(endState[0].title).toBe("What to learn");
-    expect(endState[1].title).toBe(newTodolistTitle);
+    expect(endState['todolistId2'][0].title).toBe("Milk");
+    expect(endState['todolistId2'][1].title).toBe(newTitle);
 });
 
 test('correct tasks status should be changed', () => {

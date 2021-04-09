@@ -38,12 +38,12 @@ export const taskslistsReducer = (state: TasksStateType, action: ActionsType) =>
             state[action.todolistId] = [task, ...todoListTasks]
             return {...state}
         case 'CHANGE-TASK-TITLE': {
-            const todolist = state.find(tl => tl.id === action.id);
-            if (todolist) {
-                // если нашёлся - изменим ему заголовок
-                todolist.title = action.title;
+            let todoListTasks = state[action.todolistId]
+            let task = todoListTasks.find(t => t.id === action.id)
+            if (task) {
+                task.title = action.title;
             }
-            return [...state]
+            return {...state}
         }
         case 'CHANGE-TASK-STATUS': {
             const todolist = state.find(tl => tl.id === action.id);
@@ -64,8 +64,8 @@ export const RemoveTaskAC = ( todolistId: string, id: string): TRemoveTask => {
 export const AddTaskAC = (todolistId: string, title: string): TAddTask => {
     return { type: 'ADD-TASK', todolistId, title }
 }
-export const ChangeTaskTitleAC = (id: string, todolistId: string, title: string): TChangeTaskTitle => {
-    return { type: 'CHANGE-TASK-TITLE', id, todolistId, title }
+export const ChangeTaskTitleAC = (todolistId: string, id: string, title: string): TChangeTaskTitle => {
+    return { type: 'CHANGE-TASK-TITLE', todolistId, id, title }
 }
 export const ChangeTaskStatusAC = (id: string, todolistId: string, isDone: boolean): TChangeTaskStatus => {
     return { type: 'CHANGE-TASK-STATUS', id, todolistId, isDone }
