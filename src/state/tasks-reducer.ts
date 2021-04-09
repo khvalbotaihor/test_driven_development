@@ -62,6 +62,11 @@ export const taskslistsReducer = (state: TasksStateType, action: ActionsType) =>
             }
             return {...stateCopy}
         }
+        case "ADD-TODOLIST": {
+            const stateCopy = {...state}
+
+            return stateCopy
+        }
         default:
             throw new Error("I don't understand this type")
     }
