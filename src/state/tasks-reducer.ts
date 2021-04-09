@@ -33,7 +33,10 @@ export const taskslistsReducer = (state: TasksStateType, action: ActionsType) =>
             state[action.todolistId] = todolistTasks.filter(t => t.id !== action.id)
             return {...state}
         case 'ADD-TASK':
-            return [...state, {id: v1(), title: action.title, filter: "all"}]
+            let task = {id: v1(), title: action.title, isDone: false};
+            let todoListTasks = state[action.todolistId]
+            state[action.todolistId] = [task, ...todoListTasks]
+            return {...state}
         case 'CHANGE-TASK-TITLE': {
             const todolist = state.find(tl => tl.id === action.id);
             if (todolist) {

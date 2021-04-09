@@ -36,9 +36,9 @@ test('correct task should be added', () => {
     const endState = taskslistsReducer(startState, AddTaskAC('todolistId2',newTitle))
 
     expect(endState['todolistId2'].length).toBe(3);
-    expect(endState['todolistId2'][2].title).toBe(newTitle);
-    expect(endState['todolistId2'][2].isDone).toBe(false);
-    expect(endState['todolistId2'][2].id).toBeDefined();
+    expect(endState['todolistId2'][0].title).toBe(newTitle);
+    expect(endState['todolistId2'][0].isDone).toBe(false);
+    expect(endState['todolistId2'][0].id).toBeDefined();
 });
 
 test('correct task should change its name', () => {
