@@ -46,12 +46,12 @@ export const taskslistsReducer = (state: TasksStateType, action: ActionsType) =>
             return {...state}
         }
         case 'CHANGE-TASK-STATUS': {
-            const todolist = state.find(tl => tl.id === action.id);
-            if (todolist) {
-                // если нашёлся - изменим ему заголовок
-                todolist.filter = action.filter;
+            let todoListTasks = state[action.todolistId]
+            let task = todoListTasks.find(t => t.id === action.id)
+            if (task) {
+                task.isDone = action.isDone;
             }
-            return [...state];
+            return {...state}
         }
         default:
             throw new Error("I don't understand this type")
@@ -67,6 +67,6 @@ export const AddTaskAC = (todolistId: string, title: string): TAddTask => {
 export const ChangeTaskTitleAC = (todolistId: string, id: string, title: string): TChangeTaskTitle => {
     return { type: 'CHANGE-TASK-TITLE', todolistId, id, title }
 }
-export const ChangeTaskStatusAC = (id: string, todolistId: string, isDone: boolean): TChangeTaskStatus => {
-    return { type: 'CHANGE-TASK-STATUS', id, todolistId, isDone }
+export const ChangeTaskStatusAC = (todolistId: string, id: string, isDone: boolean): TChangeTaskStatus => {
+    return { type: 'CHANGE-TASK-STATUS', todolistId, id, isDone }
 }

@@ -8,7 +8,14 @@ import {
 } from './todolists-reducer';
 import {v1} from 'uuid';
 import {FilterValuesType, TasksStateType, TodolistType} from '../App';
-import {AddTaskAC, ChangeTaskTitleAC, RemoveTaskAC, taskslistsReducer, TChangeTaskTitle} from "./tasks-reducer";
+import {
+    AddTaskAC,
+    ChangeTaskStatusAC,
+    ChangeTaskTitleAC,
+    RemoveTaskAC,
+    taskslistsReducer, TChangeTaskStatus,
+    TChangeTaskTitle
+} from "./tasks-reducer";
 
 let startState:TasksStateType;
 beforeEach(() => {
@@ -52,22 +59,12 @@ test('correct task should change its name', () => {
 });
 
 test('correct tasks status should be changed', () => {
-    let todolistId1 = v1();
-    let todolistId2 = v1();
-
-    let newFilter: FilterValuesType = "completed";
-
-    const startState: Array<TodolistType> = [
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ]
-
-    const action = ChangeTodolistFilterAC(todolistId2, newFilter);
+    const action: TChangeTaskStatus = ChangeTaskStatusAC('todolistId2','2',false);
 
     const endState = taskslistsReducer(startState, action);
 
-    expect(endState[0].filter).toBe("all");
-    expect(endState[1].filter).toBe(newFilter);
+    expect(endState['todolistId2'][0].isDone).toBe(true);
+    expect(endState['todolistId2'][1].isDone).toBe(false);
 });
 
 
