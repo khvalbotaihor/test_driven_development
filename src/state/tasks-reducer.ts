@@ -29,6 +29,9 @@ type ActionsType = TRemoveTask | TAddTask | TChangeTaskTitle | TChangeTaskStatus
 export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TASK':
+            let todolistTasks = state[todolistId];
+
+
             return state.filter(tl => tl.id != action.id)
         case 'ADD-TASK':
             return [...state, {id: v1(), title: action.title, filter: "all"}]
