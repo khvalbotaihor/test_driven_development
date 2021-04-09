@@ -3,10 +3,19 @@ type StateType = {
     childrenCount: number
     name: string
 }
-type ActionType = {
-    type: string
-    [key: string]: any
+
+export type TIncrementAge = {
+    type: 'INCREMENT-AGE'
 }
+export type TIncrementChildrenCount = {
+    type: 'INCREMENT-CHILDREN-COUNT'
+}
+export type TChangeName = {
+    type: 'CHANGE-NAME'
+    newName: string
+}
+
+export type ActionType = TIncrementAge | TIncrementChildrenCount | TChangeName;
 
 // меня вызовут и дадут мне стейт (почти всегда объект)
 // и инструкцию (action, тоже объект)
