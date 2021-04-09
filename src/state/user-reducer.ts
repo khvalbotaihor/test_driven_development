@@ -42,3 +42,13 @@ export const userReducer = (state: StateType, action: ActionType) => {
             throw new Error("I don't understand this type")
     }
 }
+
+export const IncrementUserAC = (): TIncrementAge => {
+    return { type: 'INCREMENT-AGE' }
+}
+export const IncrementChildrenCountAC = (): TIncrementChildrenCount => {
+    return { type: 'INCREMENT-CHILDREN-COUNT'}
+}
+export const ChangeNameAC = (newName: string): TChangeName => {
+    return { type: 'CHANGE-NAME', newName }
+}
