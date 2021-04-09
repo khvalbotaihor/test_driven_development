@@ -53,15 +53,15 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
     }
 }
 
-/*export const RemoveTodolistAC = (todolistId: string): RemoveTodolistActionType => {
-    return { type: 'REMOVE-TODOLIST', id: todolistId}
+export const RemoveTaskAC = ( id: string, todolistId: string): TRemoveTask => {
+    return {type: 'REMOVE-TASK', id, todolistId }
 }
-export const AddTodolistAC = (title: string): AddTodolistActionType => {
-    return { type: 'ADD-TODOLIST', title: title}
+export const AddTaskAC = (title: string,todolistId: string): TAddTask => {
+    return { type: 'ADD-TASK', title, todolistId }
 }
-export const ChangeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType => {
-    return { type: 'CHANGE-TODOLIST-TITLE', title: title, id: todolistId}
+export const ChangeTaskTitleAC = (id: string, todolistId: string, title: string): TChangeTaskTitle => {
+    return { type: 'CHANGE-TASK-TITLE', id, todolistId, title }
 }
-export const ChangeTodolistFilterAC = (todolistId: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
-    return { type: 'CHANGE-TODOLIST-FILTER', filter: filter, id: todolistId}
-}*/
+export const ChangeTaskStatusAC = (id: string, todolistId: string, isDone: boolean): TChangeTaskStatus => {
+    return { type: 'CHANGE-TASK-STATUS', id, todolistId, isDone }
+}
